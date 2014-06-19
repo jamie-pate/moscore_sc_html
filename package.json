@@ -1,0 +1,18 @@
+{
+  "license": "proprietary",
+  "author": {
+    "name": "Jamie Pate",
+    "email": "jpate@moscore.com"
+  },
+  "name": "moscore_ng",
+  "description": "Angularjs website replacement for Maximum Overdrive Software Co",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.6.2",
+    "gulp-autoprefixer": "0.0.7",
+    "gulp-ftp": "^0.3.0",
+    "gulp-ignore": "^1.1.0",
+    "gulp-less": "^1.2.3"
+  }
+}

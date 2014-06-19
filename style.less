@@ -1,0 +1,105 @@
+/* Styles go here */
+
+
+
+/* ==editor layout==*/
+dt {
+  float:left;
+  width: 100px
+}
+.hide-board {
+  overflow:hidden;
+  height: 0px;
+}
+
+.panels {
+  display: flex;
+}
+.panels dl {
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 1px 3px 10px -3px black;
+  box-sizing: border-box;
+  max-width: 400px;
+  max-height: 400px;
+  min-width: 290px;
+  -webkit-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  opacity: 1;
+  background-color:#eee;
+  background-image: radial-gradient(ellipse 120% 150% at 0 0,#fefefe, #ddd 80%, #fefefe 100%);
+  border-radius:5px;
+  border: 3px outset #CCC;
+}
+.panels dl.ng-hide-add {
+  max-width: 290px;
+}
+.panels dl.ng-hide-add, .panels dl.ng-hide-remove {
+  display: block !important;
+  overflow: hidden;
+}
+.panels dl.ng-hide {
+  max-width: 0;
+  padding: 0;
+  opacity: 0;
+  border-radius:99px;
+  min-width: 120px;
+  max-height: 120px;
+}
+.board-zoom {
+  background: silver;
+}
+.board {
+  background: black;
+  color: red;
+  width: 144px;
+  height: 32px;
+  display: inline-block;
+  font-size: 6pt;
+  font-family: "Calibri";
+  padding:2px -3px;
+  line-height: 90%;
+  -webkit-font-smoothing:none !important;
+  font-smoothing: none !important;
+}
+
+label {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  border-radius: 3px;
+  box-shadow: inset 0 0 1px #333;
+  background-color: white;
+  height: 10px;
+  vertical-align: middle;
+  margin: 10px;
+  width: 130px;
+}
+input[type='range']::-moz-range-track {
+  -moz-appearance: none;
+  border-radius: 3px;
+  box-shadow: inset 0 0 1px #333;
+  background-color: white;
+  height: 10px;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  border-radius: 5px;
+  background-color: #F0F0F0;
+  box-shadow:inset 0 -9px 2px rgba(000,000,000,0.05);
+  border: 1px solid #999;
+  height: 20px;
+  width: 20px;
+}
+input[type='range']::-moz-range-thumb {
+  -moz-appearance: none;
+  border-radius: 5px;
+  background-color: #F0F0F0;
+  box-shadow:inset 0 -9px 2px rgba(000,000,000,0.05);
+  border: 1px solid #999;
+  height: 20px;
+  width: 20px;
+}
