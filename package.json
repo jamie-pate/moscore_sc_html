@@ -13,6 +13,7 @@
     "gulp-autoprefixer": "0.0.7",
     "gulp-ftp": "^0.3.0",
     "gulp-ignore": "^1.1.0",
-    "gulp-less": "^1.2.3"
+    "gulp-less": "^1.2.3",
+    "minimatch": "^0.3.0"
   }
 }

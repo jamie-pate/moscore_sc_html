@@ -7,6 +7,8 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular-animate.js"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="layout.css">
+  <script data-require="showdown@*" data-semver="0.3.1" src="//cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+  <script src="moscore_ng/mosco.js"></script>
   <script src="script.js"></script>
   <script src="directives.js"></script>
   <script src="layout.js"></script>
@@ -83,17 +85,9 @@
   <div ng-show="settings.showData">
   {{board|json}}
   </div>
-  <script>
 
-  </script>
-
-  <script>
-      function rand(low, high) {
-          return Math.round(
-              Math.random() * (high - low)
-          ) + low;
-      }
-  </script>
+  <div markdown ng-include="'README.md'">
+  </div>
 
 </body>
 </html>

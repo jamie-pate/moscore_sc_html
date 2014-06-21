@@ -11,5 +11,5 @@ that will be sent to the board.
 
 USER editable files:
 ---
-Edit the `layout.js`, `layout.css` and `templates/*` to modify each layout.
+Edit the `layout.js`, `layout.css` and `templates/*` to modify each layout. (editor not yet available)
 

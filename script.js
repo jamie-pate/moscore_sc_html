@@ -3,7 +3,7 @@
 'use strict';
 /*globals angular, localStorage, document, console, window, getComputedStyle, HTMLElement, Blob*/
 var ng = angular,
-    board = ng.module('board', ['ngAnimate']);
+    board = ng.module('board', ['ngAnimate', 'moscore']);
 
 board.controller({main:Main});
 // https://docs.angularjs.org/guide/concepts#controller
