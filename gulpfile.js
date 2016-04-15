@@ -4,7 +4,8 @@ var gulp = require('gulp'),
 m_gulp.config({
 	copy: ['*.php', '*.js', '*.html', 'templates/**/*.html', 'README.md',
 		'../moscore_ng/mosco.js', 'moscore_ng/mosco.js'],
-	styles: ['*.less']
+	styles: ['*.less'],
+	build_dest: '../moscore_qm/run/scoreboard'
 });
 gulp.task('styles', m_gulp.styles);
 gulp.task('copy', m_gulp.copy);

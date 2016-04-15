@@ -1,20 +1,23 @@
 /*=== user layout code ===*/
 .board .doublespace div {
-  margin: 1px 1px;
+	margin: 1px 1px;
 }
 .board .wide {
-  letter-spacing: 2px;
+	letter-spacing: 2px;
 }
 .board .narrow {
-  letter-spacing:-1px;
+	letter-spacing:-1px;
 }
+.board .lineup-top,
 .board .race-top {
-  display: flex;
+	display: flex;
+	justify-content: space-between;
 }
 
+
 .board {
-  width: 96px;
-  height: 16px;
+	width: 250px;
+	height: auto;
 }
 
 .pre-race-bottom {
@@ -24,4 +27,12 @@
 
 .race-number {
 	flex: 1
+}
+
+.race-time {
+	padding-left:0.25em;
+}
+
+.error {
+	color: lightsalmon;
 }
