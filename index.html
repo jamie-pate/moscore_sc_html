@@ -24,68 +24,91 @@
 	</style>
 
 </head>
-<body ng-controller="main">
-	<div ng-class="{'hide-board': !settings.showBoard}">
-		<div m-image="board_image" styles="font_faces">
-			<div class=board ng-include="current_template()" data-template="{{ current_template() }}" style='font-size:{{settings.fontSize}}pt;font-family:"{{settings.fontFamily}}"'>
+<body ng-controller="main" title="Click on scoreboard for settings">
+	<div class="board-layer">
+		<div ng-click="settings.showPanels = !settings.showPanels">
+			<div class="hide-board">
+				<div m-image="board_image" styles="font_faces">
+					<div class="board" ng-class="settings.styleClasses" ng-include="current_template()"
+						style='font-size:{{settings.fontSize}}pt;font-family:"{{settings.fontFamily}}", sans-serif'></div>
+				</div>
+			</div>
+			<div ng-if="settings.showBoard">
+				<div styles="font_faces">
+					<div class=board ng-class="settings.styleClasses"  ng-include="current_template()"
+						style='font-size:{{settings.fontSize}}pt;font-family:"{{settings.fontFamily}}", sans-serif;zoom:{{settings.zoom}}'>
+					</div>
+				</div>
 			</div>
 		</div>
+		<div ng-click="settings.showPanels = !settings.showPanels">
+			<m-canvas ng-if="settings.showCanvas"
+				zoom="settings.zoom"
+				post="settings.screen && board_post_process"
+				src="board_image" class="board-zoom"></m-canvas>
+		</div>
 	</div>
-	<div>
-	<m-canvas
-		zoom="settings.zoom"
-		post="settings.screen && board_post_process"
-		src="board_image" class="board-zoom"></m-canvas>
+	<div class="video-layer" ng-if="settings.showVideos.length">
+		<video ng-src="{{video}}" autoplay ng-repeat="video in videoUrls()">
 	</div>
-	<div>
-	<label><input type="checkbox" ng-model="settings.showSettings">Show Settings</label> <label><input type="checkbox" ng-model="settings.showBoardControl">Show Board Control</label>
-	</div>
-	<div class=panels>
-		<dl ng-show="settings.showSettings">
-			<dt>Screen<dd><input type="checkbox" ng-model="settings.screen">
-			<dt>Zoom	 {{settings.zoom}}x<dd>
-		<input type=range min=1 max=10 ng-model="settings.zoom">
-			<dt>Font
-				<dd><input type=text list=fonts ng-model="settings.fontFamily">
-					<datalist id=fonts>
-						<option ng-repeat="font in settings.fontList" value="{{font}}"></datalist>
 
-			<dt>{{settings.fontSize}}pt
-				<dd><input type=range min=4 max=100 ng-model="settings.fontSize">
-			<dt>
-			<dt><button type="button" ng-click="reset()">Reset</button>
-		</dl>
-		<dl ng-show="settings.showBoardControl">
-			<dt>Mode<dd>
-				<select ng-options="val as mode for (mode, val) in MODE" ng-model="board.mode"></select>
-			<dt ng-if="board.mode == MODE.RACE">State<dd ng-if="board.mode == MODE.RACE">
-				<select ng-options="val as state for (state, val) in STATE"
-								ng-model="board.state"></select>
-			<dt ng-if="board.mode == MODE.RACE">Flag
-			<dd>
-				<select ng-options="val as flag for (flag, val) in FLAG"
-								ng-model=board.flag></select>
-			<dt>Laps<dd><input type=number ng-model=board.laps min=0 max=99>
-			<dt>Lineup<dd><input type=text ng-model=board.lineup ng-list>
-			<dt>Race Order<dd><input type=text ng-model=board.raceOrder ng-list>
-			<dt>Warmup<dd><input class="half" type=number ng-model="warmupTime" m-time-scale=m>{{board.warmupLeft()}}
-			<dt>Race Number<dd><input type=number ng-model=board.raceNumber>
-			<dt>Race Type<dd><input type=text ng-model=board.raceType list=race-type>
-			<datalist id=race-type><option ng-repeat="t in settings.raceTypes" value="{{t}}"></datalist>
-			<dt>Race Class<dd><input type=text ng-model=board.raceClass list=race-class>
-			<datalist id=race-class><option ng-repeat="c in settings.raceClasses" value="{{c}}"></datalist>
-		</dl>
-	</div>
-	<div>
-		<label>
-		<input ng-model="settings.showData" type="checkbox">Show Board Data</label>
-		<label>
-			<input ng-model="settings.showBoard" type="checkbox">Show Board Original HTML
-		</label>
-	</div>
-	<div ng-if="settings.showData">{{board}}</div>
-	<div class="error" ng-if="error">{{error|json}}</div>
-	<div markdown ng-include="'README.md'">
+	<!-- SETTINGS -->
+	<div class="settings-layer" ng-if="settings.showPanels">
+		<div class="panel-control">
+			<button type="button" ng-click="settings.showPanels = false" ng-disabled="!settings.showCanvas && !settings.showBoard">Hide</button>
+			<label><input type="checkbox" ng-model="settings.showSettings">Display Settings</label>
+			<label><input type="checkbox" ng-model="settings.showBoardControl">Show Board State</label>
+		</div>
+		<div class=panels>
+			<dl ng-show="settings.showSettings">
+				<dt>Zoom	 {{settings.zoom}}x<dd>
+					<input type=range min=1 max=10 step="0.01" ng-model="settings.zoom">
+				<dt>Font
+					<dd><input type=text list=fonts ng-model="settings.fontFamily">
+						<datalist id=fonts>
+							<option ng-repeat="font in settings.fontList" value="{{font}}"></datalist>
+
+				<dt>{{settings.fontSize}}pt
+					<dd><input type=range min=4 max=100 ng-model="settings.fontSize">
+				<dt>Style<dd><select multiple ng-options="styleClass as styleClass for styleClass in STYLE_CLASSES" ng-model="settings.styleClasses"></select>
+				<dt><label for="settings_"
+				<dt><label for="settings_showBoard">HTML</label>
+					<dd><input id="settings_showBoard" ng-model="settings.showBoard" type="checkbox">
+				<dt><label for="settings_showCanvas">Canvas</label>
+					<dd><input id="settings_showCanvas" ng-model="settings.showCanvas" type="checkbox">
+				<dt><label for="settings_screen">Screen<dd><input id="settings_screen" type="checkbox" ng-model="settings.screen">
+				<dt>Video<dd><select multiple ng-options="video as video for video in VIDEOS" ng-model="settings.showVideos"><option value="">None</option></select>
+				<dt><label for="settings_showData">JSON Raw</label><dd>
+					<input id="settings_showData" ng-model="settings.showData" type="checkbox">
+				<dt><label for="settings_showReadme">Readme</label><dd>
+					<input id="settings_showReadme" ng-model="settings.showReadme" type="checkbox">
+				<dt><button type="button" ng-click="reset()">Reset</button><dd>
+			</dl>
+			<dl ng-show="settings.showBoardControl">
+				<dt>Mode<dd>
+					<select ng-options="val as mode for (mode, val) in MODE" ng-model="board.mode"></select>
+				<dt ng-if="board.mode == MODE.RACE">State<dd ng-if="board.mode == MODE.RACE">
+					<select ng-options="val as state for (state, val) in STATE"
+									ng-model="board.state"></select>
+				<dt ng-if="board.mode == MODE.RACE">Flag
+				<dd>
+					<select ng-options="val as flag for (flag, val) in FLAG"
+									ng-model=board.flag></select>
+				<dt>Laps<dd><input type=number ng-model=board.laps min=0 max=99>
+				<dt>Lineup<dd><input type=text ng-model=board.lineup ng-list>
+				<dt>Race Order<dd><input type=text ng-model=board.raceOrder ng-list>
+				<dt>Warmup<dd><input class="half" type=number ng-model="warmupTime" m-time-scale=m>{{board.warmupLeft()}}
+				<dt>Race Number<dd><input type=number ng-model=board.raceNumber>
+				<dt>Race Type<dd><input type=text ng-model=board.raceType list=race-type>
+				<datalist id=race-type><option ng-repeat="t in settings.raceTypes" value="{{t}}"></datalist>
+				<dt>Race Class<dd><input type=text ng-model=board.raceClass list=race-class>
+				<datalist id=race-class><option ng-repeat="c in settings.raceClasses" value="{{c}}"></datalist>
+			</dl>
+		</div>
+		<div ng-if="settings.showData">{{board}}</div>
+		<div class="error" ng-if="error">{{error|json}}</div>
+		<div markdown ng-include="'README.md'" ng-if="settings.showPanels && settings.showReadme">
+		</div>
 	</div>
 </body>
 </html>

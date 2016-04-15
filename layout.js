@@ -51,20 +51,29 @@ var TEMPLATES = {
 	},
 	SETTINGS_DEFAULT = {
 		screen: true,
-		zoom: 3,
-		fontSize: 24,
+		zoom: 7,
+		fontSize: 22,
 		fontFamily: 'Calibri',
 		showSettings: true,
-		showControlBoard: true,
+		showControlBoard: false,
+		showPanels: true,
+		showCanvas: false,
+		showBoard: true,
+		styleClasses: ['green', 'transparent', 'halo', 'shadow'],
 		raceClasses: x(['Jr', 'Sr'], ['Novice', 'Honda', 'Animal', 'Super Stock'])
 			.concat(x(['Light', 'Heavy'], ['Honda 160', 'World Formula']))
 			.concat(['Jr Half', 'B', 'AA', 'Mod', 'Heavy Honda']),
-		raceTypes: ['Heat', 'Trophy Dash', 'Main Event']
-	}
+		raceTypes: ['Heat', 'Trophy Dash', 'Main Event'],
+		showVideos: ['MVI_1653.webmsd.webm']
+	},
+	STYLE_CLASSES = ['transparent', 'green', 'halo', 'shadow', 'none'],
+	VIDEOS = ['MVI_1653.webmsd.webm', 'MVI_3010.webmsd.webm', 'youtubecut.webmsd.webm', '']
 
 /* do not edit below here */
 board.constant({TEMPLATES: TEMPLATES, BOARD_DEFAULT: BOARD_DEFAULT,
-	SETTINGS_DEFAULT: SETTINGS_DEFAULT, MODE: MODE, STATE: STATE, FLAG: FLAG});
+	SETTINGS_DEFAULT: SETTINGS_DEFAULT, MODE: MODE, STATE: STATE, FLAG: FLAG,
+	STYLE_CLASSES: STYLE_CLASSES, VIDEOS: VIDEOS
+});
 
 
 function x(a, b, sep) {

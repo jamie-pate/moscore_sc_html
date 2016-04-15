@@ -1,12 +1,12 @@
 /* Styles go here */
 
-
-
 /* ==editor layout==*/
 body {
-  max-width: 80%;
-  width: 700px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow:hidden;
 }
 
 dt {
@@ -16,6 +16,40 @@ dt {
 .hide-board {
   overflow:hidden;
   height: 0px;
+}
+
+.board-layer {
+  position: relative;
+  z-index:5;
+}
+
+.video-layer {
+  position: absolute;
+  top:-3vh;
+  left:-3vw;
+  right:-3vw;
+  bottom: -3vh;
+  z-index: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  video {
+    flex-grow: 1;
+    min-width: 40%;
+  }
+}
+
+.settings-layer {
+  position: relative;
+  z-index: 6;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 1em;
+}
+.panel-control {
+  display: flex;
+  justify-content: space-between;
 }
 
 .panels {
@@ -110,4 +144,8 @@ input[type='range']::-moz-range-thumb {
   border: 1px solid #999;
   height: 20px;
   width: 20px;
+}
+
+.error {
+  color: lightsalmon;
 }

@@ -10,7 +10,7 @@ var ng = angular,
 board.controller({main:Main});
 // https://docs.angularjs.org/guide/concepts#controller
 function Main($scope, $http, $timeout, TEMPLATES, BOARD_DEFAULT, SETTINGS_DEFAULT,
-		MODE, STATE, FLAG) {
+		MODE, STATE, FLAG, STYLE_CLASSES, VIDEOS) {
 	this._$http = $http;
 	this._$timeout = $timeout;
 	this.load($scope, BOARD_DEFAULT, SETTINGS_DEFAULT);
@@ -20,13 +20,16 @@ function Main($scope, $http, $timeout, TEMPLATES, BOARD_DEFAULT, SETTINGS_DEFAUL
 	for (var watch in this.watches) {
 		$scope.$watch(watch, this.watches[watch], true);
 	}
-	var scopeConsts = {MODE:MODE, STATE:STATE, FLAG:FLAG};
+	var scopeConsts = {MODE:MODE, STATE:STATE, FLAG:FLAG, STYLE_CLASSES: STYLE_CLASSES, VIDEOS: VIDEOS};
 	for (var i in scopeConsts) {
 		$scope[i] = scopeConsts[i];
 	}
 	$scope.current_template = $scope.current_template.bind($scope, TEMPLATES);
 	$scope.reset = function() {
 		$scope.settings = angular.extend({}, SETTINGS_DEFAULT);
+	}
+	$scope.videoUrls = function() {
+		return $scope.settings.showVideos.filter(function(url) { return url }).map(function(url) { return 'media/' + url});
 	}
 }
 
@@ -76,6 +79,9 @@ Main.prototype = {
 					saved_settings = JSON.parse(_saved_settings);
 					if (typeof saved_settings !== 'object') {
 						saved_settings = {};
+					}
+					if (saved_settings.showBoard || saved_settings.showCanvas) {
+						saved_settings.showBoard = true;
 					}
 				}
 			} catch (ex){}

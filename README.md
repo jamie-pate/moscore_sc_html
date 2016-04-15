@@ -1,6 +1,11 @@
 Prototype scoreboard layout editor.
 ===
 
+CONTROLS
+---
+Click on the scoreboard to open the settings.
+
+
 GOAL
 ---
 Prototype version of html+css based layout engine for hdd matrix display boards.

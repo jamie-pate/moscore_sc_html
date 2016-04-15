@@ -8,12 +8,12 @@
 .board .narrow {
 	letter-spacing:-1px;
 }
+
 .board .lineup-top,
 .board .race-top {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
-
 
 .board {
 	width: 250px;
@@ -33,6 +33,22 @@
 	padding-left:0.25em;
 }
 
-.error {
-	color: lightsalmon;
+.board.transparent {
+	background-color: transparent;
+}
+
+.board.green {
+	color: lime;
+}
+
+.board.halo {
+	text-shadow: 0 0 .35em white;
+}
+
+.board.shadow {
+	text-shadow: 0.02em 0.02em .1em black;
+}
+
+.board.halo.shadow {
+	text-shadow: 0.02em 0.02em .1em black, 0 0 .35em white;
 }
