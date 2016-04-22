@@ -28,8 +28,35 @@ function Main($scope, $http, $timeout, TEMPLATES, BOARD_DEFAULT, SETTINGS_DEFAUL
 	$scope.reset = function() {
 		$scope.settings = angular.extend({}, SETTINGS_DEFAULT);
 	}
+	var af = {};
 	$scope.videoUrls = function() {
-		return $scope.settings.showVideos.filter(function(url) { return url }).map(function(url) { return 'media/' + url});
+		return $scope.settings.showVideos.filter(function(url) { return url }).map(function(url) { return allFormats(url)});
+		function allFormats(url) {
+			af[url] = af[url] || getFormats(url);
+			return af[url];
+		}
+		function getFormats(url) {
+			var formats = Object.keys(VIDEOS.formats).map(function(name) {
+					var format = VIDEOS.formats[name];
+					return {url: 'media/' + url + '.' + name, type: format.type};
+				});
+			formats.urls = formats.map(function(f) { return f.url + ' w' + f.width }).join(',');
+			return formats;
+		}
+	}
+	$scope.playVideos = function($event) {
+		var v = $event.target.parentNode.querySelectorAll('video'),
+			i, paused = false;
+		for (i = 0; i < v.length; ++i) {
+			paused = paused || v[i].paused;
+		}
+		for (var i = 0; i < v.length; ++i) {
+			if (paused) {
+				v[i].play();
+			} else {
+				v[i].pause();
+			}
+		}
 	}
 }
 

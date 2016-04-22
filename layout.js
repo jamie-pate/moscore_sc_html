@@ -51,7 +51,7 @@ var TEMPLATES = {
 	},
 	SETTINGS_DEFAULT = {
 		screen: true,
-		zoom: 7,
+		zoom: 4,
 		fontSize: 22,
 		fontFamily: 'Calibri',
 		showSettings: true,
@@ -64,10 +64,16 @@ var TEMPLATES = {
 			.concat(x(['Light', 'Heavy'], ['Honda 160', 'World Formula']))
 			.concat(['Jr Half', 'B', 'AA', 'Mod', 'Heavy Honda']),
 		raceTypes: ['Heat', 'Trophy Dash', 'Main Event'],
-		showVideos: ['MVI_1653.webmsd.webm']
+		showVideos: ['MVI_1653']
 	},
 	STYLE_CLASSES = ['transparent', 'green', 'halo', 'shadow', 'none'],
-	VIDEOS = ['MVI_1653.webmsd.webm', 'MVI_3010.webmsd.webm', 'youtubecut.webmsd.webm', '']
+	VIDEOS = {
+		files: ['MVI_1653', 'MVI_3010', 'youtubecut', ''],
+		formats: {
+			'small480x320.mp4': {width:480, type: 'video/mp4; codecs="h264, mp4a"'},
+			'webmsd.webm': {width: 720, type: 'video/webm; codecs="vp8, vorbis'}
+		}
+	};
 
 /* do not edit below here */
 board.constant({TEMPLATES: TEMPLATES, BOARD_DEFAULT: BOARD_DEFAULT,

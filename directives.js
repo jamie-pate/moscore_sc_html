@@ -3,7 +3,8 @@ board.directive({
 	mImage:mImage,
 	mCanvas:mCanvas,
 	mCopy:mCopy,
-	mTimeScale:mTimeScale
+	mTimeScale:mTimeScale,
+	video: video
 });
 
 // https://github.com/angular/angular.js/issues/4368
@@ -114,7 +115,7 @@ function mCanvas() {
 				if (data) {
 					img.src = data;
 				}
-			});	
+			});
 			img.onload();
 		}
 	};
@@ -176,4 +177,19 @@ function mImage() {
 			}
 		}
 	};
+}
+
+function video($timeout) {
+	return {
+		restrict: 'E',
+		link: function(scope, element) {
+			$timeout(function() {
+				scope.$watch(function() {
+					return element[0].paused;
+				}, function(paused) {
+					element.parent().toggleClass('paused', paused);
+				});
+			}, 1000);
+		}
+	}
 }

@@ -149,3 +149,19 @@ input[type='range']::-moz-range-thumb {
 .error {
   color: lightsalmon;
 }
+
+.video-layer.paused:after {
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: 'Click to play';
+  text-shadow: 0 0 0.1em black;
+  color: white;
+  font-size:10vw;
+  font-family: sans-serif;
+}
