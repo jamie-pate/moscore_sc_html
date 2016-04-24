@@ -4,8 +4,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
 	<title>HDD Board Layout</title>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular-animate.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="layout.css">
 	<script data-require="showdown@*" data-semver="0.3.1" src="//cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
@@ -108,7 +108,7 @@
 				<datalist id=race-class><option ng-repeat="c in settings.raceClasses" value="{{c}}"></datalist>
 			</dl>
 		</div>
-		<div ng-if="settings.showData">{{board}}</div>
+		<div ng-if="settings.showData" class="json">{{board|json}}</div>
 		<div class="error" ng-if="error">{{error|json}}</div>
 		<div markdown ng-include="'README.md'" ng-if="settings.showPanels && settings.showReadme">
 		</div>

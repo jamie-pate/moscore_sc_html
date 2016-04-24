@@ -28,6 +28,7 @@ var TEMPLATES = {
 		FINISH:'finish'
 	},
 	FLAG = {
+		PRE: 'pre',
 		GREEN:'green',
 		YELLOW: 'yellow',
 		RED: 'red',
