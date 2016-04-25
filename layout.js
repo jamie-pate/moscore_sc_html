@@ -3,7 +3,6 @@
 var TEMPLATES = {
 		qualify: 'qualify.html',
 		race: {
-			pre: 'prerace.html',
 			warmup: 'countdown.html',
 			race: {
 				green: 'race.html',
@@ -13,6 +12,7 @@ var TEMPLATES = {
 			notgreen: {
 				yellow: 'lineup.html',
 				red: 'lineup.html',
+				pre: 'prerace.html'
 			}
 		}
 	},

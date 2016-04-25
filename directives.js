@@ -68,7 +68,7 @@ function mTimeScale() {
 function mCanvas() {
 	return {
 		restrict: 'E',
-		replace: true, 
+		replace: true,
 		template: '<canvas></canvas>',
 		scope: {
 			data: '=src',
@@ -84,7 +84,7 @@ function mCanvas() {
 				var z = $scope.zoom,
 						w = img.naturalWidth,
 						wz = w * z,
-						h = img.naturalHeight, 
+						h = img.naturalHeight,
 						hz = h * z;
 				if (!w || !h) { return; }
 				back.width = w;
@@ -93,7 +93,7 @@ function mCanvas() {
 				back.style.cssText = [
 					'image-rendering: -webkit-optimize-contrast',
 					'image-rendering: -moz-crisp-edges',
-					'-webkit-font-smoothing : none'].join(';');		
+					'-webkit-font-smoothing : none'].join(';');
 				canvas.style.cssText = back.style.cssText;
 				canvas.width = wz;
 				canvas.height = hz;
@@ -143,7 +143,7 @@ function mImage() {
 				var svg = new Blob(
 					[dataStart + value + dataEnd],
 					{type: 'image/svg+xml;charset=utf-8'});
-				$scope.data = 
+				$scope.data =
 					//'data:image/svg+xml;charset=utf-8,' + dataStart + value + dataEnd;
 					DOMURL.createObjectURL(svg);
 				//console.debug($scope.data);

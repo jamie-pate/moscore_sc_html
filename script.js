@@ -126,7 +126,10 @@ Main.prototype = {
 			if (data.raceTime) {
 				data.raceTime = new Date(data.raceTime);
 			}
-			$scope.board = response.data;
+			if (data.warmupTime) {
+				data.warmupTime = new Date(data.warmupTime);
+			}
+			$scope.board = data;
 			$scope.error = null;
 			this._$timeout(function() {
 				this.updateState($scope);

@@ -30,7 +30,8 @@
 		<div ng-click="settings.showPanels = !settings.showPanels">
 			<div class="hide-board">
 				<div m-image="board_image" styles="font_faces">
-					<div class="board" ng-class="settings.styleClasses" ng-include="current_template()"
+					<div class="board" ng-class="settings.styleClasses"
+						ng-include="current_template()"
 						style='font-size:{{settings.fontSize}}pt;font-family:"{{settings.fontFamily}}", sans-serif'></div>
 				</div>
 			</div>
@@ -99,8 +100,9 @@
 									ng-model=board.flag></select>
 				<dt>Laps<dd><input type=number ng-model=board.laps min=0 max=99>
 				<dt>Lineup<dd><input type=text ng-model=board.lineup ng-list>
+				<dt>Numbers<dd><input type=text ng-model=board.numbers>
 				<dt>Race Order<dd><input type=text ng-model=board.raceOrder ng-list>
-				<dt>Warmup<dd><input class="half" type=number ng-model="warmupTime" m-time-scale=m>{{board.warmupLeft()}}
+				<dt>Warmup<dd><input class="half" type=number ng-model="board.warmupTime" m-time-scale="m">
 				<dt>Race Number<dd><input type=number ng-model=board.raceNumber>
 				<dt>Race Type<dd><input type=text ng-model=board.raceType list=race-type>
 				<datalist id=race-type><option ng-repeat="t in settings.raceTypes" value="{{t}}"></datalist>
