@@ -3,10 +3,13 @@ var gulp = require('gulp'),
 
 m_gulp.config({
 	copy: ['*.php', '*.js', '*.html', 'templates/**/*.html', 'README.md',
-		'../moscore_ng/mosco.js', 'moscore_ng/mosco.js'],
+		'../moscore_ng/mosco.js', 'moscore_ng/mosco.js', 'media/*.gif'],
 	styles: ['*.less'],
 	build_dest: '../moscore_qm/run/scoreboard'
 });
+try {
+	require('./gulp.local');
+} catch (ex) {}
 gulp.task('styles', m_gulp.styles);
 gulp.task('copy', m_gulp.copy);
 gulp.task('up', m_gulp.up);

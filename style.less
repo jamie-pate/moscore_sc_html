@@ -1,6 +1,14 @@
 /* Styles go here */
 
 /* ==editor layout==*/
+@keyframes fade-in-out{
+  0% { opacity: 1 }
+  10% { opacity: 1 }
+  20% { opacity: 0.2 }
+  90% { opacity: 0.2 }
+  100% { opacity: 1 }
+}
+
 body {
   margin: auto;
   display: flex;
@@ -40,12 +48,20 @@ dt {
   flex-wrap: wrap;
   align-items: stretch;
 
+  .youtube,
   video {
     flex-grow: 1;
     min-width: 40%;
   }
 }
-
+.graphic-layer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 6;
+  animation: fade-in-out 40s infinite
+}
+.settings-overlay,
 .settings-layer {
   position: relative;
   z-index: 6;
@@ -54,6 +70,19 @@ dt {
   overflow: auto;
   width: 650px;
   max-width: 100%;
+}
+.settings-overlay {
+  width: auto;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.settings-overlay > * {
+  opacity: 0.4;
 }
 .panel-control {
   display: flex;

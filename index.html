@@ -50,30 +50,43 @@
 				src="board_image" class="board-zoom"></m-canvas>
 		</div>
 	</div>
-	<div class="video-layer" ng-if="settings.showVideos.length" ng-click="playVideos($event)">
+	<div class="graphic-layer" ng-if="flagGif()" no-animate>
+		<img ng-src="{{ flagGif() }}" >
+	</div>
+	<div class="video-layer" ng-if="settings.showVideos.length || settings.showYoutubes.length" ng-click="playVideos($event)">
 		<video autoplay loop ng-repeat="formats in videoUrls()">
 			<source ng-repeat="format in formats" ng-src="{{ format.url}}" type="{{format.type}}">
 		</video>
+		<div class="youtube" ng-repeat="id in settings.showYoutubes">
+			<iframe style="position: absolute;top:0;left:0;width:100%;height:100%"
+				ng-src="{{ youtubeUrl(id) }}" frameborder="0" allowfullscreen></iframe>
+		</div>
 	</div>
 
 	<!-- SETTINGS -->
+	<div class="settings-overlay" ng-if="settings.showPanels">
+		<button type="button" ng-click="settings.showPanels = false" ng-disabled="!settings.showCanvas && !settings.showBoard">Hide</button>
+		<div>Zoom {{settings.zoom}}x
+			<input type=range min=1 max=10 step="0.01" ng-model="settings.zoom">
+		</div>
+		<div>Font {{settings.fontSize}}pt
+			<input type=range min=4 max=100 ng-model="settings.fontSize">
+		</div>
+		<button type="button" ng-click="resetSize()">Reset</button>
+	</div>
 	<div class="settings-layer" ng-if="settings.showPanels">
 		<div class="panel-control">
-			<button type="button" ng-click="settings.showPanels = false" ng-disabled="!settings.showCanvas && !settings.showBoard">Hide</button>
 			<label><input type="checkbox" ng-model="settings.showSettings">Display Settings</label>
 			<label><input type="checkbox" ng-model="settings.showBoardControl">Show Board State</label>
 		</div>
 		<div class=panels>
 			<dl ng-show="settings.showSettings">
-				<dt>Zoom	 {{settings.zoom}}x<dd>
-					<input type=range min=1 max=10 step="0.01" ng-model="settings.zoom">
 				<dt>Font
 					<dd><input type=text list=fonts ng-model="settings.fontFamily">
 						<datalist id=fonts>
-							<option ng-repeat="font in settings.fontList" value="{{font}}"></datalist>
+							<option ng-repeat="font in settings.fontList" value="{{font}}">
+						</datalist>
 
-				<dt>{{settings.fontSize}}pt
-					<dd><input type=range min=4 max=100 ng-model="settings.fontSize">
 				<dt>Style<dd><select multiple ng-options="styleClass as styleClass for styleClass in STYLE_CLASSES" ng-model="settings.styleClasses"></select>
 				<dt><label for="settings_"
 				<dt><label for="settings_showBoard">HTML</label>
@@ -81,7 +94,14 @@
 				<dt><label for="settings_showCanvas">Canvas</label>
 					<dd><input id="settings_showCanvas" ng-model="settings.showCanvas" type="checkbox">
 				<dt><label for="settings_screen">Screen<dd><input id="settings_screen" type="checkbox" ng-model="settings.screen">
-				<dt>Video<dd><select multiple ng-options="video as video for video in VIDEOS.files" ng-model="settings.showVideos"><option value="">None</option></select>
+				<dt>Video
+					<dd><select multiple ng-options="video as video for video in VIDEOS.files" ng-model="settings.showVideos">
+							<option value="">None</option>
+						</select>
+				<dt>Youtube
+					<dd><select multiple ng-options="id as id for id in VIDEOS.youtubes" ng-model="settings.showYoutubes" multiple>
+							<option value="">None</option>
+						</select>
 				<dt><label for="settings_showData">JSON Raw</label><dd>
 					<input id="settings_showData" ng-model="settings.showData" type="checkbox">
 				<dt><label for="settings_showReadme">Readme</label><dd>
@@ -95,9 +115,9 @@
 					<select ng-options="val as state for (state, val) in STATE"
 									ng-model="board.state"></select>
 				<dt ng-if="board.mode == MODE.RACE">Flag
-				<dd>
-					<select ng-options="val as flag for (flag, val) in FLAG"
-									ng-model=board.flag></select>
+					<dd>
+						<select ng-options="val as flag for (flag, val) in FLAG"
+										ng-model=board.flag></select>
 				<dt>Laps<dd><input type=number ng-model=board.laps min=0 max=99>
 				<dt>Lineup<dd><input type=text ng-model=board.lineup ng-list>
 				<dt>Numbers<dd><input type=text ng-model=board.numbers>

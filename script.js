@@ -28,6 +28,27 @@ function Main($scope, $http, $timeout, TEMPLATES, BOARD_DEFAULT, SETTINGS_DEFAUL
 	$scope.reset = function() {
 		$scope.settings = angular.extend({}, SETTINGS_DEFAULT);
 	}
+	$scope.resetSize = function() {
+		$scope.settings.fontSize = SETTINGS_DEFAULT.fontSize;
+		$scope.settings.zoom = SETTINGS_DEFAULT.zoom;
+	}
+	$scope.flagGif = function() {
+		if ($scope.board.flag && $scope.board.flag == $scope.flagGif.transitioned) {
+			var flag = $scope.board.flag;
+			if (flag == 'done') {
+				flag = 'check';
+			}
+			return 'media/' + flag + 'flag.gif';
+		} else {
+			// destroy the flaggif for at least one browser frame!
+			requestAnimationFrame(function() {
+				$scope.$apply(function() {
+					$scope.flagGif.transitioned = $scope.board.flag;
+				});
+			});
+			return null;
+		}
+	}
 	var af = {};
 	$scope.videoUrls = function() {
 		return $scope.settings.showVideos.filter(function(url) { return url }).map(function(url) { return allFormats(url)});
@@ -43,6 +64,9 @@ function Main($scope, $http, $timeout, TEMPLATES, BOARD_DEFAULT, SETTINGS_DEFAUL
 			formats.urls = formats.map(function(f) { return f.url + ' w' + f.width }).join(',');
 			return formats;
 		}
+	}
+	$scope.youtubeUrl = function(id) {
+		return 'https://www.youtube.com/embed/' + id + '?autoplay=1';
 	}
 	$scope.playVideos = function($event) {
 		var v = $event.target.parentNode.querySelectorAll('video'),
@@ -147,7 +171,11 @@ Main.prototype = {
 	}
 };
 
-board.config( function($compileProvider) {
+board.config( function($compileProvider, $sceDelegateProvider) {
 	var oldWhiteList = $compileProvider.imgSrcSanitizationWhitelist();
 	$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|blob):|data:image\//);
+	$sceDelegateProvider.resourceUrlWhitelist([
+		'self',
+		'https://www.youtube.com/embed/**'
+	]);
 });

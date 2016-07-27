@@ -73,7 +73,8 @@ var TEMPLATES = {
 		formats: {
 			'small480x320.mp4': {width:480, type: 'video/mp4; codecs="h264, mp4a"'},
 			'webmsd.webm': {width: 720, type: 'video/webm; codecs="vp8, vorbis'}
-		}
+		},
+		youtubes: ['kNWXhn2A08c', 'YxqnbFVd9Ms']
 	};
 
 /* do not edit below here */

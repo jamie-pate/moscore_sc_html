@@ -4,7 +4,8 @@ board.directive({
 	mCanvas:mCanvas,
 	mCopy:mCopy,
 	mTimeScale:mTimeScale,
-	video: video
+	video: video,
+	noAnimate: noAnimate
 });
 
 // https://github.com/angular/angular.js/issues/4368
@@ -190,6 +191,15 @@ function video($timeout) {
 					element.parent().toggleClass('paused', paused);
 				});
 			}, 1000);
+		}
+	}
+}
+
+function noAnimate($animate) {
+	return {
+		restrict: 'A',
+		link: function(scope, element) {
+			$animate.enabled(element, false);
 		}
 	}
 }
