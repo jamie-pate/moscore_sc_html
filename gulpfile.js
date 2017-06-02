@@ -1,9 +1,9 @@
 var gulp = require('gulp'),
-	m_gulp = require('../moscore_ng/mosco_gulp.js');
+	m_gulp = require('./moscore_ng/mosco_gulp.js');
 
 m_gulp.config({
 	copy: ['*.php', '*.js', '*.html', 'templates/**/*.html', 'README.md',
-		'../moscore_ng/mosco.js', 'moscore_ng/mosco.js', 'media/*.gif'],
+		'../moscore_ng/mosco.js', 'moscore_ng/mosco.js', 'media/*.gif', 'libs/*.js'],
 	styles: ['*.less'],
 	build_dest: '../moscore_qm/run/scoreboard'
 });

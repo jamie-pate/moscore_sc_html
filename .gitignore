@@ -3,3 +3,4 @@ build
 .ftp_pwd
 moscore_ng
 **/.blend1
+gulp.local.js
