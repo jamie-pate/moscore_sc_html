@@ -18,3 +18,4 @@ USER editable files:
 ---
 Edit the `layout.js`, `layout.css` and `templates/*` to modify each layout. (editor not yet available)
 
+For issues related to moscore_qm please see http://dev.moscore.com/projects/moscore-qm/issues?query_id=3
