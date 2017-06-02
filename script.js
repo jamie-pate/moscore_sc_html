@@ -153,6 +153,21 @@ Main.prototype = {
 			if (data.warmupTime) {
 				data.warmupTime = new Date(data.warmupTime);
 			}
+			if (data.drivers && typeof data.drivers === 'object') {
+				data.sortedDrivers = Object.keys(data.drivers).sort(function(a, b) {
+					return sortNumber(a) - sortNumber(b);
+					function sortNumber(n) {
+						switch (n) {
+							case '0': return 10;
+							case 'X': return 11;
+							case 'C': return 12;
+						}
+						return parseInt(n);
+					}
+				}).map(function(k) {
+					return {pos: k, name: data.drivers[k]};
+				});
+			}
 			$scope.board = data;
 			$scope.error = null;
 			this._$timeout(function() {

@@ -1,4 +1,7 @@
 <div class=doublespace>
-  <div class=race-class>{{board.raceClass}}</div>
+  <div class=race-class>{{board.divisionName}} {{board.className}}</div>
   <div class=pre-race-bottom><span class=race-number>Race {{board.raceNumber}}</span><span class=race-name>{{board.raceType}}</span></div>
+  <div style="font-size: 25%; line-height: 100%">
+    <div ng-repeat="d in board.sortedDrivers">{{ d.pos }} : {{ d.name }}</div>
+  </div>
 </div>
