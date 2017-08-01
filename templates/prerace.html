@@ -1,7 +1,10 @@
 <div class=doublespace>
   <div class=race-class>{{board.divisionName}} {{board.className}}</div>
-  <div class=pre-race-bottom><span class=race-number>Race {{board.raceNumber}}</span><span class=race-name>{{board.raceType}}</span></div>
-  <div style="font-size: 25%; line-height: 100%" ng-if="board.showDrivers">
+  <div class=pre-race-bottom>
+    <span class=race-number>Race {{board.raceNumber}}</span>
+    <span class=race-name> {{board.raceName}}</span>
+    <span ng-if="board.timeFormat"> {{board.warmupTime | date:'mm:ss'}}</span></div>
+  <div style="font-size: 25%; line-height: 100%">
     <div ng-repeat="d in board.sortedDrivers">{{ d.pos }} : {{ d.name }}</div>
   </div>
 </div>
