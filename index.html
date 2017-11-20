@@ -27,6 +27,7 @@
 </head>
 <body ng-controller="main" title="Click on scoreboard for settings">
 	<div class="board-layer">
+		<header data-hint="Static header for the whole page"></header>
 		<div ng-click="settings.showPanels = !settings.showPanels">
 			<div class="hide-board">
 				<div m-image="board_image" styles="font_faces">
@@ -50,6 +51,7 @@
 				src="board_image" class="board-zoom"></m-canvas>
 		</div>
 	</div>
+	<footer data-hint="Static footer for the whole page"></footer>
 	<div class="graphic-layer" ng-if="flagGif()" no-animate>
 		<img ng-src="{{ flagGif() }}" >
 	</div>
