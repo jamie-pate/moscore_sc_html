@@ -9,16 +9,21 @@ var ng = angular,
 
 board.controller({main:Main});
 // https://docs.angularjs.org/guide/concepts#controller
-function Main($scope, $http, $timeout, TEMPLATES, BOARD_DEFAULT, SETTINGS_DEFAULT,
+function Main($scope, $location, $http, $timeout, TEMPLATES, BOARD_DEFAULT, SETTINGS_DEFAULT,
 		MODE, STATE, FLAG, STYLE_CLASSES, VIDEOS) {
 	this._$http = $http;
 	this._$timeout = $timeout;
+	this._$location = $location;
+	this._$scope = $scope;
+	$scope.$on('$locationChangeSuccess', function() {
+		$scope.params = this.parseUrlParams();
+	}.bind(this));
 	this.load($scope, BOARD_DEFAULT, SETTINGS_DEFAULT);
 	for (var fn in this.scope_fns) {
 		$scope[fn] = this.scope_fns[fn].bind($scope);
 	}
 	for (var watch in this.watches) {
-		$scope.$watch(watch, this.watches[watch], true);
+		$scope.$watch(watch, this.watches[watch].bind($scope), true);
 	}
 	var scopeConsts = {MODE:MODE, STATE:STATE, FLAG:FLAG, STYLE_CLASSES: STYLE_CLASSES, VIDEOS: VIDEOS};
 	for (var i in scopeConsts) {
@@ -116,9 +121,17 @@ Main.prototype = {
 
 	},
 	watches: {
+		// NOTE: for these methods: `this` is bound to $scope
 		'settings': function save(settings, oldSettings) {
+			this.settings.fontSizePt = settings && /pt$/.test(settings.fontSize) ?
+				parseFloat(settings.fontSize) : null;
 			if (settings === oldSettings) { return }
 			localStorage.setItem('settings', JSON.stringify(settings));
+		},
+		'settings.fontSizePt': function(value, oldValue) {
+			if (value !== oldValue && value) {
+				this.settings.fontSize = value + 'pt';
+			}
 		}
 	},
 	load: function load($scope, board_default, settings_default) {
@@ -183,10 +196,76 @@ Main.prototype = {
 				default: $scope.error = 'Error: ' + error.status;
 			}
 		}.bind(this));
+	},
+	parseUrlParams: function() {
+		var search = this._$location.search(),
+			$scope = this._$scope;
+		return Object.keys(search).reduce(readParam, {});
+
+		function readParam(result, key) {
+			var value = deepValue(search[key], key);
+
+			switch(key) {
+				case 'size':
+					result[key] = getSize(value.split('x'));
+					break;
+ 				default:
+					result[key] = value === undefined ? true : $scope.$eval(value);
+			}
+			return result;	
+
+			function deepValue(value, key) {
+				var currentValue = value;
+				if (/^(board|settings)\./.test(key)) {
+					var parts = key.split('.'),
+						mergeValue,
+						mergeKey;
+
+					key = parts.shift();
+					mergeValue = $scope[key]
+					currentValue = mergeValue;
+					while (mergeKey = parts.shift()) {
+						// Reflected XSS leak! normally shouldn't $scope.$eval url params ¯\_(ツ)_/¯
+						currentValue = currentValue[mergeKey] = parts.length ?
+							(currentValue[mergeKey] || {}) :
+							$scope.$eval(value);
+					}
+	
+					value = angular.merge($scope[key], mergeValue);
+				}
+				return currentValue;
+			}
+		}
+
+		function getSize(size) {
+
+			var MIN_FONT_SIZE = 20,
+				MIN_LINES = 2,
+				size = {
+					x: parseInt(size[0], 10),
+					y: parseInt(size[1], 10)
+				};
+			var newSize = {};
+			// eval this aftter all the other settings are pulled from the url
+			$scope.$evalAsync(function() { 
+
+				var lines = $scope.settings && $scope.settings.lines || Math.max(MIN_LINES, Math.round(size.y / MIN_FONT_SIZE));
+				Object.assign(newSize, {
+					x: size.x + 'px',
+					y: size.y + 'px',
+					fontSize: Math.round(size.y / lines) + 'px'
+				});
+				if ($scope.settings && !$scope.params['settings.fontSize'] && !$scope.params['settings.fontSizePt']) {
+					$scope.settings.fontSizePt = null;
+					$scope.settings.fontSize = newSize.fontSize;
+				}
+			});
+			return newSize;
+		}
 	}
 };
 
-board.config( function($compileProvider, $sceDelegateProvider) {
+board.config(function($compileProvider, $sceDelegateProvider) {
 	var oldWhiteList = $compileProvider.imgSrcSanitizationWhitelist();
 	$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|blob):|data:image\//);
 	$sceDelegateProvider.resourceUrlWhitelist([

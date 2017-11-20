@@ -25,21 +25,22 @@
 	</style>
 
 </head>
-<body ng-controller="main" title="Click on scoreboard for settings">
-	<div class="board-layer">
+<body ng-controller="main" title="Click on scoreboard for settings" ng-class="params.size ? 'custom-size' : ''">
+	<div class="board-layer" ng-style="{ width: params.size.x, height: params.size.y, 'font-size': params.size.font}"
+			m-auto-scroll="params.size">
 		<header data-hint="Static header for the whole page"></header>
 		<div ng-click="settings.showPanels = !settings.showPanels">
 			<div class="hide-board">
 				<div m-image="board_image" styles="font_faces">
 					<div class="board" ng-class="settings.styleClasses"
 						ng-include="current_template()"
-						style='font-size:{{settings.fontSize}}pt;font-family:"{{settings.fontFamily}}", sans-serif'></div>
+						ng-style="{'font-size': settings.fontSize, 'font-family':settings.fontFamily + ' sans-serif'}"></div>
 				</div>
 			</div>
 			<div ng-if="settings.showBoard">
 				<div styles="font_faces">
 					<div class=board ng-class="settings.styleClasses"  ng-include="current_template()"
-						style='font-size:{{settings.fontSize}}pt;font-family:"{{settings.fontFamily}}", sans-serif;zoom:{{settings.zoom}}'>
+						ng-style="{'font-size': settings.fontSize, 'font-family':settings.fontFamily + ' sans-serif', zoom: settings.zoom}">
 					</div>
 				</div>
 			</div>
@@ -52,7 +53,7 @@
 		</div>
 	</div>
 	<footer data-hint="Static footer for the whole page"></footer>
-	<div class="graphic-layer" ng-if="flagGif()" no-animate>
+	<div class="graphic-layer" ng-if="flagGif() && settings.showFlags" no-animate>
 		<img ng-src="{{ flagGif() }}" >
 	</div>
 	<div class="video-layer" ng-if="settings.showVideos.length || settings.showYoutubes.length" ng-click="playVideos($event)">
@@ -71,8 +72,8 @@
 		<div>Zoom {{settings.zoom}}x
 			<input type=range min=1 max=10 step="0.01" ng-model="settings.zoom">
 		</div>
-		<div>Font {{settings.fontSize}}pt
-			<input type=range min=4 max=100 ng-model="settings.fontSize">
+		<div>Font {{settings.fontSize}}
+			<input type=range min=4 max=100 ng-model="settings.fontSizePt">
 		</div>
 		<button type="button" ng-click="resetSize()">Reset</button>
 	</div>

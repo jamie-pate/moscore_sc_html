@@ -60,6 +60,8 @@ var TEMPLATES = {
 		showPanels: true,
 		showCanvas: false,
 		showBoard: true,
+		showFlags: true,
+		lines: 11,
 		styleClasses: ['green', 'transparent', 'halo', 'shadow'],
 		raceClasses: x(['Jr', 'Sr'], ['Novice', 'Honda', 'Animal', 'Super Stock'])
 			.concat(x(['Light', 'Heavy'], ['Honda 160', 'World Formula']))
@@ -67,7 +69,7 @@ var TEMPLATES = {
 		raceTypes: ['Heat', 'Trophy Dash', 'Main Event'],
 		showVideos: ['MVI_1653']
 	},
-	STYLE_CLASSES = ['transparent', 'green', 'halo', 'shadow', 'none'],
+	STYLE_CLASSES = ['transparent', 'white', 'green', 'halo', 'shadow', 'none'],
 	VIDEOS = {
 		files: ['MVI_1653', 'MVI_3010', 'youtubecut', ''],
 		formats: {

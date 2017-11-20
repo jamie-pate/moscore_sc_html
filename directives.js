@@ -1,9 +1,10 @@
 board.directive({
 	mWith: mWith,
-	mImage:mImage,
-	mCanvas:mCanvas,
-	mCopy:mCopy,
-	mTimeScale:mTimeScale,
+	mImage: mImage,
+	mCanvas: mCanvas,
+	mCopy: mCopy,
+	mTimeScale: mTimeScale,
+	mAutoScroll: mAutoScroll,
 	video: video,
 	noAnimate: noAnimate
 });
@@ -178,6 +179,31 @@ function mImage() {
 			}
 		}
 	};
+}
+
+function mAutoScroll() {
+	return {
+		restrict: 'A', 
+		controller: AutoScroll
+	};
+}
+
+function AutoScroll($element, $interval, $scope, $attrs) {
+	var AUTO_SCROLL_INTERVAL = 50,
+		AUTO_SCROLL_DURATION = 5000,
+		doubleScroll = 0,
+		// TODO: only register interval when autoscroll is enabled
+		intvl = $interval(function() {
+			if ($attrs.mAutoScroll) {
+				var maxScroll = $element[0].scrollHeight - $element[0].clientHeight,
+					scrollIncrement = maxScroll / (AUTO_SCROLL_DURATION / AUTO_SCROLL_INTERVAL);
+				if (maxScroll) {
+					doubleScroll = (doubleScroll + scrollIncrement) % maxScroll;
+					$element[0].scrollTop = doubleScroll;
+				}
+			}
+		}.bind(this), AUTO_SCROLL_INTERVAL);
+	$scope.$on('$destroy', function() { $interval.cancel(intvl) });
 }
 
 function video($timeout) {

@@ -22,6 +22,10 @@ body {
   bottom:0;
 }
 
+body.custom-size {
+  align-items: flex-start;
+}
+
 dt {
   float:left;
   width: 100px
@@ -31,6 +35,9 @@ dt {
   height: 0px;
 }
 
+body.custom-size .board-layer {
+  overflow: hidden;
+}
 .board-layer {
   position: relative;
   z-index:5;
