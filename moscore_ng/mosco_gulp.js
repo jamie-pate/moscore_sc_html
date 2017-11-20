@@ -3,6 +3,7 @@ module.exports = {
 	config: config,
 	styles: styles,
 	copy:copy,
+	export: copy_export,
 	up: up,
 	watch: watch,
 	watchup: watchup
@@ -19,7 +20,8 @@ var gulp = require('gulp'),
 	files,
 	gulpfile_glob = ['**/*gulp*.js', '../**/*gulp*.js'],
 	cwd = path.resolve('./'),
-	build_dest = path.resolve('./build');
+	build_dest = path.resolve('./build'),
+	export_dest = path.resolve('../exported')
 
 function mm(path, globs) {
 	return globs.some(match);
@@ -32,6 +34,9 @@ function config(files_) {
 	files = files_;
 	if (files.build_dest) {
 		build_dest = path.resolve(files.build_dest);
+	}
+	if (files.export_dest) {
+		export_dest = path.resolve(files.export_dest);
 	}
 }
 
@@ -59,6 +64,13 @@ function copy(errcb, src) {
 	return gulp.src(src || files.copy, {base: cwd})
 		.pipe(ignore.exclude(gulpfile_glob))
 		.pipe(gulp.dest(build_dest));
+}
+
+function copy_export(errcb) {
+	var src = path.join(build_dest, '**');
+	console.log('exporting from ', src, ' to ', export_dest);
+	return gulp.src(src, {base: build_dest})
+		.pipe(gulp.dest(export_dest));
 }
 
 function up(errcb, src) {
