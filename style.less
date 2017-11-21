@@ -116,7 +116,7 @@ body.custom-size .board-layer {
   box-shadow: 1px 3px 10px -3px black;
   box-sizing: border-box;
   max-width: 400px;
-  max-height: 400px;
+  max-height: 70vh;
   min-width: 290px;
   -webkit-transition: 0.3s linear all;
   transition: 0.3s linear all;
@@ -125,6 +125,7 @@ body.custom-size .board-layer {
   background-image: radial-gradient(ellipse 120% 150% at 0 0,#fefefe, #ddd 80%, #fefefe 100%);
   border-radius:5px;
   border: 3px outset #CCC;
+  overflow-y: auto;
 }
 .panels dl.ng-hide-add {
   max-width: 290px;
@@ -144,10 +145,15 @@ body.custom-size .board-layer {
 .board-zoom {
   background: silver;
 }
+body {
+  background: black
+}
+body:not(.custom-size) .board {
+  width: 144px;
+}
 .board {
   background: black;
   color: red;
-  width: 144px;
   height: 32px;
   display: inline-block;
   font-size: 6pt;

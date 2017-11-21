@@ -190,16 +190,19 @@ function mAutoScroll() {
 
 function AutoScroll($element, $interval, $scope, $attrs) {
 	var AUTO_SCROLL_INTERVAL = 50,
-		AUTO_SCROLL_DURATION = 5000,
+		AUTO_SCROLL_DURATION = 10000,
 		doubleScroll = 0,
+		last = Date.now(),
 		// TODO: only register interval when autoscroll is enabled
 		intvl = $interval(function() {
 			if ($attrs.mAutoScroll) {
-				var maxScroll = $element[0].scrollHeight - $element[0].clientHeight,
-					scrollIncrement = maxScroll / (AUTO_SCROLL_DURATION / AUTO_SCROLL_INTERVAL);
+				var maxScroll = ($element[0].scrollHeight - $element[0].clientHeight) * 1.1,
+					duration = Date.now() - last,
+					scrollIncrement = maxScroll * (duration / AUTO_SCROLL_DURATION);
+				last = Date.now();
 				if (maxScroll) {
 					doubleScroll = (doubleScroll + scrollIncrement) % maxScroll;
-					$element[0].scrollTop = doubleScroll;
+					$element[0].scrollTop = Math.round(doubleScroll);
 				}
 			}
 		}.bind(this), AUTO_SCROLL_INTERVAL);

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<title>HDD Board Layout</title>
 	<script src="libs/angular.js"></script>
-	<script src="libs/angular-animate.js"></script>
+	<!--script src="libs/angular-animate.js"></script-->
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="layout.css">
 	<script data-require="showdown@*" data-semver="0.3.1" src="libs/showdown.min.js"></script>
@@ -25,7 +25,8 @@
 	</style>
 
 </head>
-<body ng-controller="main" title="Click on scoreboard for settings" ng-class="params.size ? 'custom-size' : ''">
+<body ng-controller="main" title="Click on scoreboard for settings"
+		ng-class="(params.size ? ['custom-size'] : ['']).concat(settings.styleClasses)">
 	<div class="board-layer" ng-style="{ width: params.size.x, height: params.size.y, 'font-size': params.size.font}"
 			m-auto-scroll="params.size">
 		<header data-hint="Static header for the whole page"></header>
@@ -34,13 +35,20 @@
 				<div m-image="board_image" styles="font_faces">
 					<div class="board" ng-class="settings.styleClasses"
 						ng-include="current_template()"
-						ng-style="{'font-size': settings.fontSize, 'font-family':settings.fontFamily + ' sans-serif'}"></div>
+						ng-style="{
+							'font-size': settings.fontSize,
+							'font-family':settings.fontFamily + ' sans-serif',
+							'line-height': settings.lineHeight}"></div>
 				</div>
 			</div>
 			<div ng-if="settings.showBoard">
 				<div styles="font_faces">
 					<div class=board ng-class="settings.styleClasses"  ng-include="current_template()"
-						ng-style="{'font-size': settings.fontSize, 'font-family':settings.fontFamily + ' sans-serif', zoom: settings.zoom}">
+						ng-style="{
+							'font-size': settings.fontSize,
+							'font-family':settings.fontFamily + ' sans-serif',
+							'line-height': settings.lineHeight,
+							zoom: settings.zoom}">
 					</div>
 				</div>
 			</div>
@@ -89,9 +97,11 @@
 						<datalist id=fonts>
 							<option ng-repeat="font in settings.fontList" value="{{font}}">
 						</datalist>
-
+				<dt>Line Height {{ settings.lineHeight }}</dt>
+					<dd><div><input ng-model="settings.lineHeight" type="range" step="0.01" min="0.1" max="10"></div>
+				<dt>Lines</dt>
+				<dd><input type="number" ng-model="settings.lines"></dd>
 				<dt>Style<dd><select multiple ng-options="styleClass as styleClass for styleClass in STYLE_CLASSES" ng-model="settings.styleClasses"></select>
-				<dt><label for="settings_"
 				<dt><label for="settings_showBoard">HTML</label>
 					<dd><input id="settings_showBoard" ng-model="settings.showBoard" type="checkbox">
 				<dt><label for="settings_showCanvas">Canvas</label>

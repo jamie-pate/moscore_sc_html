@@ -17,8 +17,10 @@
   justify-content: space-between;
 }
 
-.board {
+body:not(.custom-size) .board {
 	width: 250px;
+}
+.board {
 	height: auto;
 }
 
@@ -31,6 +33,7 @@ body:not(.custom-size) .board-drivers {
 	line-height: 100%
 }
 
+body.transparent,
 .board.transparent {
 	background-color: transparent;
 }

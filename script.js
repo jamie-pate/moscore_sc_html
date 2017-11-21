@@ -3,7 +3,7 @@
 'use strict';
 /*globals angular, localStorage, document, console, window, getComputedStyle, HTMLElement, Blob*/
 var ng = angular,
-		board = ng.module('board', ['ngAnimate', 'moscore']),
+		board = ng.module('board', [/*'ngAnimate', */'moscore']),
 		REFRESH_INTERVAL = 250,
 		RETRY_INTERVAL = 5000;
 
@@ -203,14 +203,19 @@ Main.prototype = {
 		return Object.keys(search).reduce(readParam, {});
 
 		function readParam(result, key) {
-			var value = deepValue(search[key], key);
+			var value = deepValue(search[key], key),
+				noParse = value !== null;
+			if (value === null) {
+				value = search[key];
+			}
 
 			switch(key) {
 				case 'size':
 					result[key] = getSize(value.split('x'));
 					break;
- 				default:
-					result[key] = value === undefined ? true : $scope.$eval(value);
+				 default:
+					result[key] = noParse ? value :
+						(value === undefined ? true : $scope.$eval(value));
 			}
 			return result;	
 

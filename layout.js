@@ -55,6 +55,7 @@ var TEMPLATES = {
 		zoom: 4,
 		fontSize: 22,
 		fontFamily: 'Calibri',
+		lineHeight: 1,
 		showSettings: true,
 		showControlBoard: false,
 		showPanels: true,
