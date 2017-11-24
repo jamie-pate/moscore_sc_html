@@ -56,6 +56,8 @@ var TEMPLATES = {
 		fontSize: 22,
 		fontFamily: 'Calibri',
 		lineHeight: 1,
+		letterSpacing: '',
+		wideLetterSpacing: '2px',
 		showSettings: true,
 		showControlBoard: false,
 		showPanels: true,
@@ -64,6 +66,7 @@ var TEMPLATES = {
 		showFlags: true,
 		lines: 11,
 		styleClasses: ['green', 'transparent', 'halo', 'shadow'],
+		backgroundStyleClasses: ['transparent-bg'],
 		raceClasses: x(['Jr', 'Sr'], ['Novice', 'Honda', 'Animal', 'Super Stock'])
 			.concat(x(['Light', 'Heavy'], ['Honda 160', 'World Formula']))
 			.concat(['Jr Half', 'B', 'AA', 'Mod', 'Heavy Honda']),
@@ -71,6 +74,7 @@ var TEMPLATES = {
 		showVideos: ['MVI_1653']
 	},
 	STYLE_CLASSES = ['transparent', 'white', 'green', 'halo', 'shadow', 'none'],
+	BACKGROUND_STYLE_CLASSES = ['transparent-bg', 'black-bg'],
 	VIDEOS = {
 		files: ['MVI_1653', 'MVI_3010', 'youtubecut', ''],
 		formats: {
@@ -83,7 +87,7 @@ var TEMPLATES = {
 /* do not edit below here */
 board.constant({TEMPLATES: TEMPLATES, BOARD_DEFAULT: BOARD_DEFAULT,
 	SETTINGS_DEFAULT: SETTINGS_DEFAULT, MODE: MODE, STATE: STATE, FLAG: FLAG,
-	STYLE_CLASSES: STYLE_CLASSES, VIDEOS: VIDEOS
+	STYLE_CLASSES: STYLE_CLASSES, BACKGROUND_STYLE_CLASSES: BACKGROUND_STYLE_CLASSES, VIDEOS: VIDEOS
 });
 
 

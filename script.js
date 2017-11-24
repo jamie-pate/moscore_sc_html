@@ -9,8 +9,8 @@ var ng = angular,
 
 board.controller({main:Main});
 // https://docs.angularjs.org/guide/concepts#controller
-function Main($scope, $location, $http, $timeout, TEMPLATES, BOARD_DEFAULT, SETTINGS_DEFAULT,
-		MODE, STATE, FLAG, STYLE_CLASSES, VIDEOS) {
+function Main($scope, $rootScope, $location, $http, $timeout, TEMPLATES, BOARD_DEFAULT, SETTINGS_DEFAULT,
+		MODE, STATE, FLAG, STYLE_CLASSES, BACKGROUND_STYLE_CLASSES, VIDEOS) {
 	this._$http = $http;
 	this._$timeout = $timeout;
 	this._$location = $location;
@@ -25,7 +25,14 @@ function Main($scope, $location, $http, $timeout, TEMPLATES, BOARD_DEFAULT, SETT
 	for (var watch in this.watches) {
 		$scope.$watch(watch, this.watches[watch].bind($scope), true);
 	}
-	var scopeConsts = {MODE:MODE, STATE:STATE, FLAG:FLAG, STYLE_CLASSES: STYLE_CLASSES, VIDEOS: VIDEOS};
+	$scope.$watch('settings', function(value) {
+		$rootScope.settings = value;
+	});
+	var scopeConsts = {
+		MODE:MODE, STATE:STATE, FLAG:FLAG,
+		STYLE_CLASSES: STYLE_CLASSES, BACKGROUND_STYLE_CLASSES: BACKGROUND_STYLE_CLASSES,
+		VIDEOS: VIDEOS
+	};
 	for (var i in scopeConsts) {
 		$scope[i] = scopeConsts[i];
 	}
