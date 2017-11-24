@@ -5,6 +5,6 @@
     <span class=race-name>&nbsp;{{board.raceName}}</span>
     <span ng-if="board.timeFormat">&nbsp;{{board.warmupTime | date:'mm:ss'}}</span></div>
   <div class="board-drivers">
-    <div ng-repeat="d in board.sortedDrivers">{{ d.pos }} : {{ d.name }}</div>
+    <div ng-repeat="d in board.sortedDrivers">{{ d.pos }}:{{ d.name }}</div>
   </div>
 </div>
