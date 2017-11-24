@@ -195,14 +195,15 @@ function AutoScroll($element, $interval, $scope, $attrs) {
 		last = Date.now(),
 		// TODO: only register interval when autoscroll is enabled
 		intvl = $interval(function() {
-			if ($attrs.mAutoScroll) {
-				var maxScroll = ($element[0].scrollHeight - $element[0].clientHeight) * 1.1,
+			if ($scope.$eval($attrs.mAutoScroll)) {
+				var maxScroll = ($element[0].scrollHeight - $element[0].clientHeight),
+					overScroll = maxScroll * 0.1,
 					duration = Date.now() - last,
-					scrollIncrement = maxScroll * (duration / AUTO_SCROLL_DURATION);
+					scrollIncrement = (maxScroll + overScroll * 2) * (duration / AUTO_SCROLL_DURATION);
 				last = Date.now();
 				if (maxScroll) {
-					doubleScroll = (doubleScroll + scrollIncrement) % maxScroll;
-					$element[0].scrollTop = Math.round(doubleScroll);
+					doubleScroll = (doubleScroll + scrollIncrement) % (maxScroll + overScroll * 2);
+					$element[0].scrollTop = Math.round(doubleScroll - overScroll);
 				}
 			}
 		}.bind(this), AUTO_SCROLL_INTERVAL);
