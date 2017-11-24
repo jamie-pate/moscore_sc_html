@@ -130,10 +130,14 @@ Main.prototype = {
 	watches: {
 		// NOTE: for these methods: `this` is bound to $scope
 		'settings': function save(settings, oldSettings) {
-			this.settings.fontSizePt = settings && /pt$/.test(settings.fontSize) ?
-				parseFloat(settings.fontSize) : null;
 			if (settings === oldSettings) { return }
 			localStorage.setItem('settings', JSON.stringify(settings));
+		},
+		'settings.fontSize' :function(value, oldValue) {
+			if (this.settings) {
+				this.settings.fontSizePt = /pt$/.test(value) ?
+					parseFloat(value) : null;
+			}
 		},
 		'settings.fontSizePt': function(value, oldValue) {
 			if (value !== oldValue && value) {
