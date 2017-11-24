@@ -191,6 +191,8 @@ function mAutoScroll() {
 function AutoScroll($element, $interval, $scope, $attrs) {
 	var AUTO_SCROLL_INTERVAL = 50,
 		AUTO_SCROLL_DURATION = 10000,
+		// FIXME: this number doesn't really mean anything in real life units
+		MAX_SCROLL_SPEED = 0.05,
 		doubleScroll = 0,
 		last = Date.now(),
 		// TODO: only register interval when autoscroll is enabled
@@ -200,6 +202,9 @@ function AutoScroll($element, $interval, $scope, $attrs) {
 					overScroll = maxScroll * 0.1,
 					duration = Date.now() - last,
 					scrollIncrement = (maxScroll + overScroll * 2) * (duration / AUTO_SCROLL_DURATION);
+				if (scrollIncrement / AUTO_SCROLL_DURATION * 1000 > MAX_SCROLL_SPEED) {
+					scrollIncrement = AUTO_SCROLL_DURATION * MAX_SCROLL_SPEED / 1000;
+				}
 				last = Date.now();
 				if (maxScroll) {
 					doubleScroll = (doubleScroll + scrollIncrement) % (maxScroll + overScroll * 2);
