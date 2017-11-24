@@ -192,6 +192,8 @@ Main.prototype = {
 					return {pos: k, name: data.drivers[k]};
 				});
 			}
+			data.lineupJoinChar = data.lineup.some(function(l) { l && l.length > 1 }) ? ' ' : '\u200b';
+			data.raceOrderJoinChar = data.raceOrder.some(function(ro) { ro && ro.length > 1}) ? ' ' : '\u200b';
 			$scope.board = data;
 			$scope.error = null;
 			this._$timeout(function() {

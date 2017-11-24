@@ -2,8 +2,8 @@
   <div class=race-class >{{board.divisionName}} {{board.className}}</div>
   <div class=pre-race-bottom>
     <span class=race-number>Race {{board.raceNumber}}</span>
-    <span class=race-name> {{board.raceName}}</span>
-    <span ng-if="board.timeFormat"> {{board.warmupTime | date:'mm:ss'}}</span></div>
+    <span class=race-name>&nbsp;{{board.raceName}}</span>
+    <span ng-if="board.timeFormat">&nbsp;{{board.warmupTime | date:'mm:ss'}}</span></div>
   <div class="board-drivers">
     <div ng-repeat="d in board.sortedDrivers">{{ d.pos }} : {{ d.name }}</div>
   </div>

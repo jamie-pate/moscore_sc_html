@@ -3,5 +3,5 @@
 		<span class=lap>Lap {{board.laps}}</span>
 		<span class=race-time>{{board.raceTime|date:"mm:ss"}}</span>
 	</div>
-	<div class=wide>{{board.raceOrder.join(' ')}}</div>
+	<div class=wide>{{board.raceOrder.join(board.raceOrderJoinChar)}}</div>
 </div>
