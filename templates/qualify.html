@@ -1,4 +1,4 @@
 <div class=doublespace>
-	<div ng-repeat="d in board.sortedDrivers">{{ d.pos }} {{ d.name }}</div>
+	<div ng-repeat="d in board.sortedDrivers" style="white-space:nowrap">{{ d.pos }} {{ d.name }}</div>
 	<div>{{board.lapTime.toFixed(board.lapTimePrecision)}}</div>
 </div>
